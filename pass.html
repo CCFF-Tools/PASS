@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PASS Realtime Price Display</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+        }
+        .price-container {
+            text-align: center;
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .price {
+            font-size: 2em;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="price-container">
+        <h1>PASS Realtime Price Display</h1>
+        <div class="price" id="price">Calculating...</div>
+    </div>
+
+    <script>
+        const initialPrice = 30;
+        const priceIncreasePerSecond = 0.036 / 3600; // $0.036 per hour converted to per second
+        const startTime = new Date('2025-02-05T05:00:00Z').getTime(); // Midnight EST (UTC-5)
+        const finalPrice = 50;
+        const endTime = new Date('2025-02-28T05:00:00Z').getTime(); // Adjusted to midnight EST on Feb 28
+
+        function updatePrice() {
+            const currentTime = new Date().getTime();
+            const elapsedMilliseconds = Math.max(0, (currentTime - startTime));
+            let currentPrice = initialPrice + (priceIncreasePerSecond * (elapsedMilliseconds / 1000));
+
+            // Ensure the price does not exceed the final price
+            if (currentTime >= endTime) {
+                currentPrice = finalPrice;
+            }
+
+            document.getElementById('price').innerText = `$${currentPrice.toFixed(8)}`;
+        }
+
+        // Update price every 10 milliseconds
+        setInterval(updatePrice, 10);
+        updatePrice();
+    </script>
+</body>
+</html>
+
