@@ -48,7 +48,7 @@
         }
 
         .blink {
-            font-size: 1.2em;
+            font-size: 1em; /* Reduced size */
             color: #ff0000;
             font-weight: bold;
             animation: blinker 0.5s linear infinite, pulseText 1s linear infinite;
@@ -61,9 +61,9 @@
         }
 
         @keyframes pulseText {
-            0% { font-size: 1.1em; }
-            50% { font-size: 1.4em; }
-            100% { font-size: 1.1em; }
+            0% { font-size: 0.9em; }
+            50% { font-size: 1.2em; }
+            100% { font-size: 0.9em; }
         }
 
         @media (max-width: 600px) {
@@ -76,7 +76,7 @@
             }
 
             .blink {
-                font-size: 1em;
+                font-size: 0.9em; /* Adjusted for smaller screens */
             }
         }
     </style>
