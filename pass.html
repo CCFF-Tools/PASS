@@ -6,39 +6,51 @@
     <title>PASS Realtime Price Display</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Comic Sans MS', cursive, sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            background-color: #f4f4f4;
+            background: #ffffff;
         }
+
         .price-container {
             text-align: center;
-            background: #fff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background: #ffffff;
+            padding: 30px;
+            border: 10px dashed lime;
+            border-radius: 20px;
+            box-shadow: 0 0 20px 5px #0000ff;
         }
+
         .price {
-            font-size: 2em;
-            color: #333;
+            font-size: 3em;
+            color: #000000;
         }
+
         .blink {
-            font-size: 1.2em;
-            color: red;
-            animation: blinker 1s linear infinite;
+            font-size: 1.5em;
+            color: #ff0000;
+            font-weight: bold;
+            animation: blinker 0.5s linear infinite, pulseText 1s linear infinite;
         }
+
         @keyframes blinker {
             50% {
                 opacity: 0;
             }
         }
+
+        @keyframes pulseText {
+            0% { font-size: 1.4em; }
+            50% { font-size: 1.8em; }
+            100% { font-size: 1.4em; }
+        }
     </style>
 </head>
 <body>
     <div class="price-container">
-        <h1>PASS Realtime Price Display</h1>
+        <h1 style="font-size: 4em; color: black; text-transform: none;">PASS realtime price display</h1>
         <div class="price" id="price">Calculating...</div>
         <div class="blink">Buy now before the price reaches $50 on February 28!</div>
     </div>
@@ -69,4 +81,3 @@
     </script>
 </body>
 </html>
-
