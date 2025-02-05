@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Countdown Timer</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html, body {
+            height: 100%;
+        }
+
+        body {
+            font-family: 'Comic Sans MS', 'Arial', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #ffffff;
+        }
+
+        .timer-container {
+            text-align: center;
+            background: #ffffff;
+            padding: 30px;
+            border: 10px dashed lime;
+            border-radius: 20px;
+            box-shadow: 0 0 20px 5px #0000ff;
+        }
+
+        .timer {
+            font-size: 3em;
+            color: #000000;
+        }
+
+        .blink {
+            font-size: 1.5em;
+            color: #ff0000;
+            font-weight: bold;
+            animation: blinker 0.5s linear infinite, pulseText 1s linear infinite;
+        }
+
+        @keyframes blinker {
+            50% {
+                opacity: 0;
+            }
+        }
+
+        @keyframes pulseText {
+            0% { font-size: 1.4em; }
+            50% { font-size: 1.8em; }
+            100% { font-size: 1.4em; }
+        }
+    </style>
+</head>
+<body>
+    <div class="timer-container">
+        <h1 style="font-size: 4em; color: black; text-transform: none;">Purchase now before pre-sale ends early to mid next week.</h1>
+        <div class="timer-label" style="font-size: 1.8em; margin-top: 10px;">Time Remaining</div>
+        <div class="timer" id="timer">Calculating...</div>
+        <div class="blink">Buy now before it's too late!</div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const endTime = new Date('2025-02-12T17:00:00Z').getTime(); // Noon EST (UTC-5)
+
+            function updateTimer() {
+                const currentTime = new Date().getTime();
+                const timeRemaining = endTime - currentTime;
+
+                if (timeRemaining <= 0) {
+                    document.getElementById('timer').innerText = "00:00:00:00:00";
+                    clearInterval(timerInterval);
+                    return;
+                }
+
+                const days = Math.floor(timeRemaining / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((timeRemaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
+                const centiseconds = Math.floor((timeRemaining % 1000) / 10);
+
+                document.getElementById('timer').innerText = 
+                    `${String(days).padStart(2, '0')}:${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}:${String(centiseconds).padStart(2, '0')}`;
+            }
+
+            const timerInterval = setInterval(updateTimer, 10);
+            updateTimer();
+        });
+    </script>
+</body>
+</html>
