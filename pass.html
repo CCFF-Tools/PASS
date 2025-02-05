@@ -24,12 +24,23 @@
             font-size: 2em;
             color: #333;
         }
+        .blink {
+            font-size: 1.2em;
+            color: red;
+            animation: blinker 1s linear infinite;
+        }
+        @keyframes blinker {
+            50% {
+                opacity: 0;
+            }
+        }
     </style>
 </head>
 <body>
     <div class="price-container">
         <h1>PASS Realtime Price Display</h1>
         <div class="price" id="price">Calculating...</div>
+        <div class="blink">Buy now before the price reaches $50 on February 28!</div>
     </div>
 
     <script>
