@@ -59,6 +59,23 @@
             animation: blinker 0.5s linear infinite, pulseText 1s linear infinite;
         }
 
+        .buy-now-button {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 10px 20px;
+            background-color: #ff6600;
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s ease;
+        }
+
+        .buy-now-button:hover {
+            background-color: #cc5200;
+        }
+
         @keyframes blinker {
             50% {
                 opacity: 0;
@@ -92,6 +109,7 @@
         <div class="timer-label">Time Remaining</div>
         <div class="timer" id="timer">Calculating...</div>
         <div class="blink">Buy now before it's too late!</div>
+        <a href="https://app.opendate.io/e/capital-city-film-festival-2025-april-02-2025-570302" class="buy-now-button" target="_blank">Buy Now</a>
     </div>
 
     <script>
