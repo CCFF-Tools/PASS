@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PASS Realtime Price Display</title>
+    <title>Countdown Timer</title>
     <style>
         * {
             box-sizing: border-box;
@@ -24,7 +24,7 @@
             padding: 10px;
         }
 
-        .price-container {
+        .timer-container {
             text-align: center;
             background: #ffffff;
             padding: 20px;
@@ -42,13 +42,18 @@
             word-wrap: break-word;
         }
 
-        .price {
+        .timer-label {
+            font-size: 1.5em;
+            margin-top: 10px;
+        }
+
+        .timer {
             font-size: 2.5em;
             color: #000000;
         }
 
         .blink {
-            font-size: 1em;
+            font-size: 1.2em;
             color: #ff0000;
             font-weight: bold;
             animation: blinker 0.5s linear infinite, pulseText 1s linear infinite;
@@ -65,7 +70,6 @@
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
             transition: background-color 0.3s ease;
-            font-size: 1.2em;
         }
 
         .buy-now-button:hover {
@@ -79,9 +83,9 @@
         }
 
         @keyframes pulseText {
-            0% { font-size: 0.9em; }
-            50% { font-size: 1.2em; }
-            100% { font-size: 0.9em; }
+            0% { font-size: 1.1em; }
+            50% { font-size: 1.4em; }
+            100% { font-size: 1.1em; }
         }
 
         @media (max-width: 600px) {
@@ -89,48 +93,51 @@
                 font-size: 1.8em;
             }
 
-            .price {
+            .timer {
                 font-size: 2em;
             }
 
             .blink {
-                font-size: 0.9em;
+                font-size: 1em;
             }
         }
     </style>
 </head>
 <body>
-    <div class="price-container">
-        <h1 class="title">PASS realtime price display</h1>
-        <div class="price" id="price">Calculating...</div>
-        <div class="blink">Buy now before the price reaches $50 on February 28!</div>
-        <a href="http://ccff.co/passes" class="buy-now-button" target="_blank">Buy now at http://ccff.co/passes</a>
+    <div class="timer-container">
+        <h1 class="title">Purchase now before pre-sale ends early to mid next week.</h1>
+        <div class="timer-label">Time Remaining</div>
+        <div class="timer" id="timer">Calculating...</div>
+        <div class="blink">Buy now before it's too late!</div>
+        <a href="https://app.opendate.io/e/capital-city-film-festival-2025-april-02-2025-570302" class="buy-now-button" target="_blank">Buy Now</a>
     </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const initialPrice = 30;
-            const priceIncreasePerSecond = 0.036 / 3600; // $0.036 per hour converted to per second
-            const startTime = new Date('2025-02-05T05:00:00Z').getTime(); // Midnight EST (UTC-5)
-            const finalPrice = 50;
-            const endTime = new Date('2025-02-28T05:00:00Z').getTime(); // Adjusted to midnight EST on Feb 28
+            const endTime = new Date('2025-02-12T17:00:00Z').getTime(); // Noon EST (UTC-5)
 
-            function updatePrice() {
+            function updateTimer() {
                 const currentTime = new Date().getTime();
-                const elapsedMilliseconds = Math.max(0, (currentTime - startTime));
-                let currentPrice = initialPrice + (priceIncreasePerSecond * (elapsedMilliseconds / 1000));
+                const timeRemaining = endTime - currentTime;
 
-                // Ensure the price does not exceed the final price
-                if (currentTime >= endTime) {
-                    currentPrice = finalPrice;
+                if (timeRemaining <= 0) {
+                    document.getElementById('timer').innerText = "00:00:00:00:00";
+                    clearInterval(timerInterval);
+                    return;
                 }
 
-                document.getElementById('price').innerText = `$${currentPrice.toFixed(8)}`;
+                const days = Math.floor(timeRemaining / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((timeRemaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
+                const centiseconds = Math.floor((timeRemaining % 1000) / 10);
+
+                document.getElementById('timer').innerText = 
+                    `${String(days).padStart(2, '0')}:${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}:${String(centiseconds).padStart(2, '0')}`;
             }
 
-            // Update price every 10 milliseconds
-            setInterval(updatePrice, 10);
-            updatePrice();
+            const timerInterval = setInterval(updateTimer, 10);
+            updateTimer();
         });
     </script>
 </body>
