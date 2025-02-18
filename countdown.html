@@ -61,6 +61,18 @@
             margin-top: 10px;
         }
 
+        .fomo-image {
+            width: 250px;
+            height: auto;
+            margin-top: 20px;
+            animation: shake 0.2s infinite alternate;
+        }
+
+        @keyframes shake {
+            0% { transform: translateX(-3px); }
+            100% { transform: translateX(3px); }
+        }
+
         .buy-now-button {
             display: inline-block;
             margin-top: 20px;
@@ -118,6 +130,7 @@
         <div class="expired-text">SHOULD HAVE BOUGHT EARLIER!</div>
         <div class="expired-text">FOMO INTENSIFIES!</div>
         <div class="expired-clock">00:00:00</div>
+        <img src="Fomo.jpg" alt="FOMO Intensifies" class="fomo-image">
         <a href="https://ccff.co/passes" class="buy-now-button" target="_blank">Click here to pay full price.</a>
     </div>
 
